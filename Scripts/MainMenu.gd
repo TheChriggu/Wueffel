@@ -17,6 +17,11 @@ func _ready():
 #	pass
 
 
-func _on_Button_button_down():
+func _on_StartButton_button_down():
 	emit_signal("start_game_pressed")
+	pass # Replace with function body.
+
+
+func _on_ExitButton_button_down():
+	get_tree().quit()
 	pass # Replace with function body.
