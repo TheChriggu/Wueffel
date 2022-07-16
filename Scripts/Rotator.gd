@@ -23,8 +23,8 @@ func _process(delta):
 	rot_z += delta * speed.z
 	
 	transform.basis = Basis() # reset rotation
-	rotate_object_local(Vector3(1, 0, 0), rot_x)
-	rotate_object_local(Vector3(0, 1, 0), rot_y)
-	rotate_object_local(Vector3(0, 0, 1), rot_z)
+	#rotate_object_local(Vector3(1, 0, 0), rot_x)
+	#rotate_object_local(Vector3(0, 1, 0), rot_y)
+	#rotate_object_local(Vector3(0, 0, 1), rot_z)
 	
 	pass
