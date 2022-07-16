@@ -1,30 +1,276 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://Scenes/TestSceneChris.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scripts/testScript2.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/MainGameplayScene.gd" type="Script" id=2]
+[ext_resource path="res://Pictures/IMG_20220525_000520__01.jpg" type="Texture" id=3]
+[ext_resource path="res://Scripts/CupControls.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/CameraFocus.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/CameraTarget.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/CameraController.gd" type="Script" id=8]
 
-[sub_resource type="PlaneMesh" id=1]
+[sub_resource type="GDScript" id=20]
+script/source = "extends Camera
+
+
+# Declare member variables here. Examples:
+# var a = 2
+# var b = \"text\"
+var mouse_sens = 0.1
+var camera_anglev=0
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+"
 
 [sub_resource type="PlaneMesh" id=2]
 
-[sub_resource type="SpatialMaterial" id=3]
+[sub_resource type="Shader" id=18]
+code = "// NOTE: Shader automatically converted from Godot Engine 3.4.4.stable's SpatialMaterial.
+
+shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx;
+uniform vec4 albedo : hint_color;
+uniform sampler2D texture_albedo : hint_albedo;
+uniform float specular;
+uniform float metallic;
+uniform float roughness : hint_range(0,1);
+uniform float point_size : hint_range(0,128);
+uniform vec3 uv1_scale;
+uniform vec3 uv1_offset;
+uniform vec3 uv2_scale;
+uniform vec3 uv2_offset;
+uniform float pixelReduction;
+
+
+void vertex() {
+	UV=UV*uv1_scale.xy+uv1_offset.xy;
+}
+
+
+
+
+void fragment() {
+	vec2 texelSize = vec2(textureSize(texture_albedo, 0));
+	vec2 pixelatedUV = UV * texelSize/pixelReduction;
+	pixelatedUV = floor(pixelatedUV);
+	pixelatedUV /= texelSize/pixelReduction;
+	vec2 base_uv = pixelatedUV;
+	
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+	METALLIC = metallic;
+	ROUGHNESS = roughness;
+	SPECULAR = specular;
+}
+"
+
+[sub_resource type="ShaderMaterial" id=19]
+shader = SubResource( 18 )
+shader_param/albedo = Color( 1, 1, 1, 1 )
+shader_param/specular = 0.5
+shader_param/metallic = 0.0
+shader_param/roughness = 1.0
+shader_param/point_size = 1.0
+shader_param/uv1_scale = Vector3( 1, 1, 1 )
+shader_param/uv1_offset = Vector3( 0, 0, 0 )
+shader_param/uv2_scale = Vector3( 1, 1, 1 )
+shader_param/uv2_offset = Vector3( 0, 0, 0 )
+shader_param/pixelReduction = 4.0
+
+[sub_resource type="BoxShape" id=5]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[sub_resource type="CubeMesh" id=4]
+
+[sub_resource type="BoxShape" id=6]
+
+[sub_resource type="BoxShape" id=7]
+
+[sub_resource type="CubeMesh" id=8]
+
+[sub_resource type="SpatialMaterial" id=9]
+flags_unshaded = true
+
+[sub_resource type="CubeMesh" id=10]
+
+[sub_resource type="CubeMesh" id=11]
+
+[sub_resource type="SpatialMaterial" id=12]
+
+[sub_resource type="CubeMesh" id=13]
+
+[sub_resource type="CubeMesh" id=14]
+
+[sub_resource type="BoxShape" id=15]
+
+[sub_resource type="CubeMesh" id=16]
+
+[sub_resource type="SpatialMaterial" id=17]
+albedo_color = Color( 0.494118, 0.113725, 0.113725, 1 )
+albedo_texture = ExtResource( 3 )
 
 [node name="MainGameplayScene" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="Ground" type="MeshInstance" parent="."]
-transform = Transform( 5, 0, 0, 0, 1, 0, 0, 0, 5, 0, -0.664562, 0 )
-mesh = SubResource( 1 )
-material/0 = null
+[node name="CameraController" type="Spatial" parent="."]
+script = ExtResource( 8 )
 
-[node name="Main Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, -0.00169293, 0.999999, 0, -0.999999, -0.00169293, 0, 3.48861, 0 )
+[node name="CameraFocus" type="Spatial" parent="CameraController"]
+script = ExtResource( 6 )
+
+[node name="CameraTarget" type="Spatial" parent="CameraController/CameraFocus"]
+script = ExtResource( 7 )
+
+[node name="Main Camera" type="Camera" parent="CameraController"]
 cull_mask = 1023
 current = true
+script = SubResource( 20 )
 
-[node name="Spatial" parent="." instance=ExtResource( 1 )]
+[node name="2DGame" type="Node" parent="."]
 
-[node name="MeshInstance" type="MeshInstance" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.85447, 0 )
+[node name="2DGameStuff" parent="2DGame" instance=ExtResource( 1 )]
+
+[node name="2DGameStuffDisplay" type="MeshInstance" parent="2DGame"]
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 15, 0, -0.467761, 0.336624 )
 mesh = SubResource( 2 )
-material/0 = SubResource( 3 )
+skeleton = NodePath("../..")
+material/0 = SubResource( 19 )
+
+[node name="GameBoard" type="Spatial" parent="."]
+
+[node name="Background" type="StaticBody" parent="GameBoard"]
+
+[node name="CollisionShape" type="CollisionShape" parent="GameBoard/Background"]
+transform = Transform( 10, 0, 0, 0, 0.2, 0, 0, 0, 10, 0, -0.802293, 0 )
+shape = SubResource( 5 )
+
+[node name="Background" type="MeshInstance" parent="GameBoard/Background"]
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 5, 0, -0.664562, 0 )
+mesh = SubResource( 1 )
+skeleton = NodePath("../../..")
+material/0 = null
+
+[node name="Bounds" type="Spatial" parent="GameBoard"]
+
+[node name="WallNorth" type="StaticBody" parent="GameBoard/Bounds"]
+transform = Transform( 15, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, -3.749 )
+
+[node name="Mesh" type="MeshInstance" parent="GameBoard/Bounds/WallNorth"]
+visible = false
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="GameBoard/Bounds/WallNorth"]
+transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="WallSouth" type="StaticBody" parent="GameBoard/Bounds"]
+transform = Transform( 15, 0, 0, 0, 10, 0, 0, 0, 1, 0, 0, 3.75619 )
+
+[node name="Mesh" type="MeshInstance" parent="GameBoard/Bounds/WallSouth"]
+visible = false
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="GameBoard/Bounds/WallSouth"]
+transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="WallWest" type="StaticBody" parent="GameBoard/Bounds"]
+transform = Transform( -6.55671e-07, 0, -1, 0, 10, 0, 15, 0, -4.37114e-08, -5.82741, 0, 3.75619 )
+
+[node name="Mesh" type="MeshInstance" parent="GameBoard/Bounds/WallWest"]
+visible = false
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="GameBoard/Bounds/WallWest"]
+transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="WallEast" type="StaticBody" parent="GameBoard/Bounds"]
+transform = Transform( -6.55671e-07, 0, -1, 0, 10, 0, 15, 0, -4.37114e-08, 5.83289, 0, 3.75619 )
+
+[node name="Mesh" type="MeshInstance" parent="GameBoard/Bounds/WallEast"]
+visible = false
+mesh = SubResource( 4 )
+skeleton = NodePath("../..")
+material/0 = null
+
+[node name="CollisionShape" type="CollisionShape" parent="GameBoard/Bounds/WallEast"]
+transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
+shape = SubResource( 6 )
+
+[node name="Cup" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.42437, 0 )
+script = ExtResource( 4 )
+
+[node name="KinematicBody" type="KinematicBody" parent="Cup"]
+
+[node name="Bottom" type="CollisionShape" parent="Cup/KinematicBody"]
+transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cup/KinematicBody/Bottom"]
+mesh = SubResource( 8 )
+skeleton = NodePath("../../..")
+material/0 = SubResource( 9 )
+
+[node name="CollisionShape2" type="CollisionShape" parent="Cup/KinematicBody"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 1, 0.96633, 0.897917, 0 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cup/KinematicBody/CollisionShape2"]
+mesh = SubResource( 10 )
+material/0 = null
+
+[node name="CollisionShape3" type="CollisionShape" parent="Cup/KinematicBody"]
+transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 1, -0.2156, 0.137485, 0 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cup/KinematicBody/CollisionShape3"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.072, 0.726018, 0 )
+mesh = SubResource( 11 )
+material/0 = SubResource( 12 )
+
+[node name="CollisionShape4" type="CollisionShape" parent="Cup/KinematicBody"]
+transform = Transform( -4.37114e-09, 0, 1, 0, 1, 0, -0.1, 0, -4.37114e-08, 0, 0.129942, 0.201066 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cup/KinematicBody/CollisionShape4"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1397, 0.77281, 4.8693e-08 )
+mesh = SubResource( 13 )
+material/0 = null
+
+[node name="CollisionShape5" type="CollisionShape" parent="Cup/KinematicBody"]
+transform = Transform( -4.37114e-09, 0, 1, 0, 1, 0, -0.1, 0, -4.37114e-08, 0, 0.152072, -0.208787 )
+shape = SubResource( 7 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Cup/KinematicBody/CollisionShape5"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8213, 0.741229, -5.16726e-08 )
+mesh = SubResource( 14 )
+material/0 = null
+
+[node name="D6" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.57451, 0 )
+
+[node name="RigidBody" type="RigidBody" parent="D6"]
+
+[node name="CollisionShape" type="CollisionShape" parent="D6/RigidBody"]
+transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
+shape = SubResource( 15 )
+
+[node name="MeshInstance" type="MeshInstance" parent="D6/RigidBody/CollisionShape"]
+mesh = SubResource( 16 )
+material/0 = SubResource( 17 )
