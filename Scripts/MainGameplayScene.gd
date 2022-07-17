@@ -1,9 +1,7 @@
 extends Spatial
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-var camFocus : Spatial
+
+var controller : Spatial
 
 var currentState = 0
 
@@ -15,8 +13,9 @@ func _ready():
 	var tx = load("res://Pictures/IMG_20220525_000520__01.jpg")
 	get_child(1).get_child(1).get("material/"+str(0)).set_shader_param("texture_albedo", tex)
 	
-	camFocus = get_child(0).get_child(0)
+	controller = get_child(0)
 
+<<<<<<< HEAD
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if currentState == 1:
@@ -33,3 +32,7 @@ func _input(event):
 		else:
 			get_child(1).get_child(0).OnInputEvent(event)
 		print("input event")
+=======
+func _toggle_cam_movement(toggle):
+	controller.is_enabled = toggle
+>>>>>>> Dice
