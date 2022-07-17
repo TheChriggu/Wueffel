@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Scripts/NewStuff/NewCameraController.gd" type="Script" id=1]
 [ext_resource path="res://Scripts/NewStuff/Target.gd" type="Script" id=2]
@@ -9,6 +9,13 @@
 
 [sub_resource type="CapsuleMesh" id=2]
 material = SubResource( 1 )
+
+[sub_resource type="ProceduralSky" id=4]
+
+[sub_resource type="Environment" id=3]
+background_mode = 2
+background_sky = SubResource( 4 )
+background_color = Color( 0.184314, 0.168627, 0.168627, 1 )
 
 [node name="Controller" type="Spatial"]
 script = ExtResource( 1 )
@@ -29,6 +36,7 @@ script = ExtResource( 3 )
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.889161, 0.457595, 0, -0.457595, 0.889161, 0, 3.18206, 4.16211 )
 cull_mask = 1047552
+environment = SubResource( 3 )
 script = ExtResource( 4 )
 
 [node name="TopDown" type="Spatial" parent="."]
