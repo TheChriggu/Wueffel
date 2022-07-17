@@ -1,0 +1,51 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Models/SM_Dice_01.obj" type="ArrayMesh" id=1]
+[ext_resource path="res://Models/Gradiant.material" type="Material" id=2]
+[ext_resource path="res://Scripts/Cube.gd" type="Script" id=3]
+
+[sub_resource type="BoxShape" id=17]
+extents = Vector3( 0.25, 0.25, 0.25 )
+
+[node name="Cube" type="RigidBody"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.83189, 0.0968193 )
+script = ExtResource( 3 )
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0, 0, 0 )
+mesh = ExtResource( 1 )
+material/0 = ExtResource( 2 )
+
+[node name="Up" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.506179, 0 )
+
+[node name="Down" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.515967, 0 )
+
+[node name="Left" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.573311, 0.0055685, 0.018259 )
+
+[node name="Right" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.492065, 0, 0 )
+
+[node name="Forward" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.478789 )
+
+[node name="Back" type="Spatial" parent="MeshInstance"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.488093 )
+
+[node name="CollisionShape" type="CollisionShape" parent="."]
+shape = SubResource( 17 )
+
+[node name="DampTimer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="StopTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="Tweener" type="Tween" parent="."]
+
+[connection signal="sleeping_state_changed" from="." to="." method="_on_Cube_sleeping_state_changed"]
+[connection signal="timeout" from="DampTimer" to="." method="_on_DampTimer_timeout"]
+[connection signal="timeout" from="StopTimer" to="." method="_on_StopTimer_timeout"]

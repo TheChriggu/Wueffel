@@ -97,3 +97,14 @@ func calc_mousediff():
 	var diff = start_mouse_position - stop_mouse_postion
 	
 	return diff
+
+func on_dice_has_fallen():
+	print($Cube.points)
+
+
+func _on_throw_completed():
+	$Cube.notify_thrown()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	_on_throw_completed()
