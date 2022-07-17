@@ -18,5 +18,5 @@ func _ready():
 
 func _toggle_cam_movement(toggle):
 	
-	camFocus._toggle_cam_move(toggle)
+	#camFocus._toggle_cam_move(toggle)
 	pass
