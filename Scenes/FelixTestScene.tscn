@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Models/T_GradientTexture_01.tga" type="Texture" id=1]
 [ext_resource path="res://Models/SM_Locomotive_01(3).obj" type="ArrayMesh" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://Models/TestWaggon.png" type="Texture" id=7]
 [ext_resource path="res://Scenes/Rails.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scripts/GridMapPlacer.gd" type="Script" id=9]
+[ext_resource path="res://availability.tres" type="MeshLibrary" id=10]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
@@ -35,7 +36,7 @@ script = ExtResource( 9 )
 
 [node name="GridMap" type="GridMap" parent="GridMapPlacer"]
 mesh_library = ExtResource( 5 )
-cell_size = Vector3( 4, 2, 4 )
+cell_size = Vector3( 4, 1, 4 )
 data = {
 "cells": PoolIntArray( -65534, 1, 4, -65534, 2, 4, -65534, 3, 4, -65534, 4, 4 )
 }
@@ -75,6 +76,16 @@ material/0 = SubResource( 4 )
 
 [node name="Rails" parent="GridMapPlacer/GridMap" instance=ExtResource( 8 )]
 visible = false
+
+[node name="AvailabilityMap" type="GridMap" parent="GridMapPlacer"]
+mesh_library = ExtResource( 10 )
+cell_size = Vector3( 4, 2, 4 )
+data = {
+"cells": PoolIntArray(  )
+}
+__meta__ = {
+"_editor_clip_": 0
+}
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.973411, 0.216898, -0.0736606, 0.114487, 0.739199, 0.663685, 0.198402, 0.637605, -0.744377, 0, 6.51442, 0 )

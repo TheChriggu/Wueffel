@@ -4,17 +4,30 @@ extends Spatial
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
-
+var tileMap : GridMap
+var validityMap : GridMap
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	tileMap = get_child(0)
+	validityMap = get_child(1)
+	validityMap.transform = tileMap.transform
 	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if Input.is_action_pressed("ui_accept"):
-		pass
+	var validTiles = tileMap.get_valid_tiles()
+	var invalidTiles = tileMap.get_invalid_tiles()
+	
+	validityMap.clear()
+	
+	for tile in validTiles:
+		validityMap.set_cell_item(tile.x, tile.y+1, tile.z, 0, 6)
+	
+	for tile in invalidTiles:
+		validityMap.set_cell_item(tile.x, tile.y+1, tile.z, 1, 6)
+		
 	pass
 
 func _input(event):
@@ -32,7 +45,6 @@ func _input(event):
 		var targetPos = tileMap.world_to_map(from + distance*dir)
 		
 		tileMap.place_tile_at(targetPos)
-		#tileMap.set_cell_item(targetPos.x, targetPos.y, targetPos.z, 0)
 
 func place_tile_at_mouse_position(mousePos):
 	

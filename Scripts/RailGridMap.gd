@@ -133,6 +133,44 @@ func tile_can_be_placed_at_position(index3D):
 	var isValid = (abs(diff.x) + abs(diff.y) + abs(diff.z)) == 1;
 	return isValid
 
+func get_valid_tiles():
+	var currentLast = pathPoints[pathPoints.size() - 1]
+	var retVal = Array()
+	var left = currentLast - Vector3(0,0,-1)
+	var right = currentLast - Vector3(0,0,1)
+	var top = currentLast - Vector3(1,0,0)
+	var bottom = currentLast - Vector3(-1,0,0)
+	
+	if tile_can_be_placed_at_position(left):
+		retVal.append(left)
+	if tile_can_be_placed_at_position(right):
+		retVal.append(right)
+	if tile_can_be_placed_at_position(top):
+		retVal.append(top)
+	if tile_can_be_placed_at_position(bottom):
+		retVal.append(bottom)
+	
+	return retVal
+
+func get_invalid_tiles():
+	var currentLast = pathPoints[pathPoints.size() - 1]
+	var retVal = Array()
+	var left = currentLast - Vector3(0,0,-1)
+	var right = currentLast - Vector3(0,0,1)
+	var top = currentLast - Vector3(1,0,0)
+	var bottom = currentLast - Vector3(-1,0,0)
+	
+	if !tile_can_be_placed_at_position(left):
+		retVal.append(left)
+	if !tile_can_be_placed_at_position(right):
+		retVal.append(right)
+	if !tile_can_be_placed_at_position(top):
+		retVal.append(top)
+	if !tile_can_be_placed_at_position(bottom):
+		retVal.append(bottom)
+	
+	return retVal
+
 func generate_path():
 	
 	path.curve.clear_points()
