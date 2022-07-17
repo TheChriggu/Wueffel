@@ -74,7 +74,7 @@ func calc_speed():
 func roll(delta):
 	$SpringArm.rotate_y(roll_speed * actual_speed_mult * delta)
 	$SpringArm.spring_length = actual_speed_mult
-	$SpringArm/KinematicBody.global_transform.basis = Basis()
+	$SpringArm/CupBody.global_transform.basis = Basis()
 
 func throw_normal():
 	throwing = true
@@ -97,3 +97,19 @@ func calc_mousediff():
 	var diff = start_mouse_position - stop_mouse_postion
 	
 	return diff
+
+func on_dice_has_fallen():
+	LazyLinker.hud.points += $Cube.points
+	
+	var fallen_cube = FallenCube.new()
+	get_parent().add_child(fallen_cube)
+	
+	queue_free()
+
+
+func _on_throw_completed():
+	$Cube.notify_thrown()
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	_on_throw_completed()
