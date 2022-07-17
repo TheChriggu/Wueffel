@@ -300,22 +300,22 @@ bones/1/name = "Axle_Mid"
 bones/1/parent = 0
 bones/1/rest = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -5.55157e-17, 0.35931, -0.00971287 )
 bones/1/enabled = true
-bones/1/bound_children = [ NodePath("BoneAttachment4") ]
+bones/1/bound_children = [  ]
 bones/2/name = "Siderod"
 bones/2/parent = 1
 bones/2/rest = Transform( 1, 0, 0, 0, 0.00258422, 0.999997, 0, -0.999997, 0.00258422, 0.50011, -0.149022, 0 )
 bones/2/enabled = true
-bones/2/bound_children = [ NodePath("BoneAttachment3") ]
+bones/2/bound_children = [  ]
 bones/3/name = "Mainrod"
 bones/3/parent = 2
 bones/3/rest = Transform( -0.0734549, -8.34465e-07, -0.997309, -0.155257, -0.987808, 0.0114363, -0.985139, 0.155678, 0.0725599, 0, 5.98957e-08, -2.17387e-08 )
 bones/3/enabled = true
-bones/3/bound_children = [ NodePath("BoneAttachment2") ]
+bones/3/bound_children = [  ]
 bones/4/name = "Piston"
 bones/4/parent = 3
 bones/4/rest = Transform( -0.988456, 0.150662, 0.0160091, 0.150452, 0.988523, -0.0136632, -0.0178839, -0.0110968, -0.999778, 7.45058e-09, 1.10036, 3.44589e-08 )
 bones/4/enabled = true
-bones/4/bound_children = [ NodePath("BoneAttachment") ]
+bones/4/bound_children = [  ]
 bones/5/name = "Piston_Stretch"
 bones/5/parent = 4
 bones/5/rest = Transform( -0.999853, -0.00206899, -0.0170438, -0.00207189, 0.999998, 0.0001526, 0.0170434, 0.000187891, -0.999855, 3.00352e-08, 0.294079, 1.96742e-08 )
@@ -325,12 +325,12 @@ bones/6/name = "Axle_Front"
 bones/6/parent = 0
 bones/6/rest = Transform( 1, 2.3507e-16, -2.3507e-16, -2.3507e-16, 1, 5.52581e-32, 2.3507e-16, 0, 1, -5.55157e-17, 0.35931, 0.88819 )
 bones/6/enabled = true
-bones/6/bound_children = [ NodePath("BoneAttachment5") ]
+bones/6/bound_children = [  ]
 bones/7/name = "Axle_Back"
 bones/7/parent = 0
 bones/7/rest = Transform( 1, 2.3507e-16, -2.3507e-16, -2.3507e-16, 1, 5.52581e-32, 2.3507e-16, 0, 1, -5.55157e-17, 0.35931, -0.900329 )
 bones/7/enabled = true
-bones/7/bound_children = [ NodePath("BoneAttachment6") ]
+bones/7/bound_children = [  ]
 bones/8/name = "Piston_Target"
 bones/8/parent = -1
 bones/8/rest = Transform( -0.0734552, 5.96046e-08, -0.997299, -0.997299, -1.19209e-07, 0.0734552, -5.96046e-08, 1, 0, 0.50011, 0.37939, 1.85256 )
@@ -338,7 +338,7 @@ bones/8/enabled = true
 bones/8/bound_children = [  ]
 
 [node name="BoneAttachment" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( 0.0904427, 3.88362e-07, 0.995932, 0.9959, 0.0020787, -0.0904441, -0.00206878, 0.999998, 0.000188246, 0.500105, 0.37878, 1.07767 )
+transform = Transform( 0.0904429, 3.85335e-08, 0.995932, 0.9959, 0.00207865, -0.0904443, -0.00206865, 0.999998, 0.000188171, 0.500105, 0.378294, 1.23915 )
 bone_name = "Piston"
 
 [node name="Cube007" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment"]
@@ -347,7 +347,7 @@ mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
 [node name="BoneAttachment2" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( -0.0734548, -4.45751e-06, -0.997329, -0.985537, 0.153125, 0.07259, 0.15271, 0.988207, -0.0112525, 0.50011, 0.210288, -0.00971294 )
+transform = Transform( -0.073454, -4.48525e-06, -0.997329, -0.997279, 0.00624269, 0.0734547, 0.00622506, 0.999981, -0.000463309, 0.50011, 0.371424, 0.138816 )
 bone_name = "Mainrod"
 
 [node name="Cube006" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment2"]
@@ -356,7 +356,7 @@ mesh = SubResource( 2 )
 material/0 = ExtResource( 1 )
 
 [node name="BoneAttachment3" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( 1, 0, 0, 0, 4.44099e-08, 1, 0, -1, 4.44099e-08, 0.50011, 0.210288, -0.00971288 )
+transform = Transform( 1, 0, 0, 0, 3.12924e-07, 1, 0, -1, 3.12924e-07, 0.50011, 0.371424, 0.138816 )
 bone_name = "Siderod"
 
 [node name="Cylinder030" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment3"]
@@ -365,7 +365,7 @@ mesh = SubResource( 3 )
 material/0 = ExtResource( 1 )
 
 [node name="BoneAttachment4" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( 1, 0, 0, 0, 1, -4.37114e-08, 0, 4.37114e-08, 1, -5.55157e-17, 0.35931, -0.00971287 )
+transform = Transform( 1, 0, 0, 0, -0.0812922, 0.99669, 0, -0.99669, -0.0812922, -5.55157e-17, 0.35931, -0.00971287 )
 bone_name = "Axle_Mid"
 
 [node name="Circle009" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment4"]
@@ -373,7 +373,7 @@ mesh = SubResource( 4 )
 material/0 = ExtResource( 1 )
 
 [node name="BoneAttachment5" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( 1, 2.3507e-16, -2.3507e-16, -2.3507e-16, 1, -4.37114e-08, 2.3507e-16, 4.37114e-08, 1, -5.55157e-17, 0.35931, 0.88819 )
+transform = Transform( 1, 2.15183e-16, 2.53401e-16, -2.3507e-16, -0.0812922, 0.99669, 2.3507e-16, -0.99669, -0.0812922, -5.55157e-17, 0.35931, 0.88819 )
 bone_name = "Axle_Front"
 
 [node name="Circle008" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment5"]
@@ -382,7 +382,7 @@ mesh = SubResource( 5 )
 material/0 = ExtResource( 1 )
 
 [node name="BoneAttachment6" type="BoneAttachment" parent="SM_Locomotive_01002/Armature/Skeleton"]
-transform = Transform( 1, 2.3507e-16, -2.3507e-16, -2.3507e-16, 1, -4.37114e-08, 2.3507e-16, 4.37114e-08, 1, -5.55157e-17, 0.35931, -0.900329 )
+transform = Transform( 1, 2.15183e-16, 2.53401e-16, -2.3507e-16, -0.0812922, 0.99669, 2.3507e-16, -0.99669, -0.0812922, -5.55157e-17, 0.35931, -0.900329 )
 bone_name = "Axle_Back"
 
 [node name="Circle010" type="MeshInstance" parent="SM_Locomotive_01002/Armature/Skeleton/BoneAttachment6"]
@@ -401,6 +401,7 @@ mesh = SubResource( 8 )
 material/0 = ExtResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "ArmatureAction001"
 anims/ArmatureAction001 = SubResource( 9 )
 anims/Circle008 = SubResource( 10 )
 anims/Circle009 = SubResource( 11 )
