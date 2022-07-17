@@ -9,6 +9,7 @@ var path : Path
 var pathFollow1 : PathFollow
 var pathFollow2 : PathFollow
 var pathFollow3 : PathFollow
+var pathFollow4 : PathFollow
 var tracks
 
 var run = false
@@ -24,8 +25,8 @@ func _ready():
 	
 	startCurve = Curve3D.new()
 	
-	startCurve.add_point(path.curve.get_point_position(0))
-	startCurve.add_point(path.curve.get_point_position(1))
+	startCurve.add_point($Path.curve.get_point_position(0))
+	startCurve.add_point($Path.curve.get_point_position(1))
 	tracks = get_child(1)
 	
 	var used_rail_tiles = get_used_cells()
@@ -37,6 +38,8 @@ func _ready():
 	pathFollow1 = path.get_child(0)
 	pathFollow2 = path.get_child(1)
 	pathFollow3 = path.get_child(2)
+	pathFollow4 = path.get_child(3)
+	
 
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
@@ -49,6 +52,7 @@ func _process(delta):
 	pathFollow1.offset += delta*5
 	pathFollow2.offset += delta*5
 	pathFollow3.offset += delta*5
+	pathFollow4.offset += delta*5
 
 func place_tile_at(index3D):
 	if !tile_can_be_placed_at_position(index3D):
@@ -226,6 +230,11 @@ func generate_path():
 	for tile in pathPoints:
 		var worldCoord = map_to_world(tile.x, tile.y, tile.z)
 		var item = get_cell_item(tile.x, tile.y, tile.z)
+		
+		if used_rail_tiles.find(tile ) < 0:
+			continue
+		if item > 5:
+			continue
 		
 		var curve = tracks.get_curve_for_item(item)
 		
