@@ -1,4 +1,5 @@
 extends Spatial
+class_name Cup
 
 export(float) var max_roll_radius = 3
 export(float) var roll_speed = 20
@@ -103,6 +104,8 @@ func on_dice_has_fallen():
 	
 	var fallen_cube = FallenCube.new()
 	get_parent().add_child(fallen_cube)
+	
+	get_parent().go_into_track_state()
 	
 	queue_free()
 

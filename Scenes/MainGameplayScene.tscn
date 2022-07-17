@@ -84,6 +84,7 @@ albedo_texture = ExtResource( 3 )
 
 [node name="MainGameplayScene" type="Spatial"]
 script = ExtResource( 2 )
+cup_scene = ExtResource( 4 )
 
 [node name="Controller" parent="." instance=ExtResource( 5 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.89223 )
@@ -171,7 +172,6 @@ transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="Cup" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="D6" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.57451, 0 )
