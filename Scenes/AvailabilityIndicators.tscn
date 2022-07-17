@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://UI/Construction/UIM_Icon_Build_02.tres" type="Material" id=1]
 [ext_resource path="res://UI/Construction/UIM_Icon_Cursor_01.tres" type="Material" id=2]
@@ -9,6 +9,8 @@
 
 [sub_resource type="QuadMesh" id=1]
 size = Vector2( 3.5, 3.5 )
+
+[sub_resource type="CubeMesh" id=2]
 
 [node name="AvailabilityIndicators" type="Spatial"]
 
@@ -23,6 +25,11 @@ layers = 1024
 mesh = SubResource( 1 )
 material/0 = ExtResource( 1 )
 
+[node name="MeshInstance" type="MeshInstance" parent="Valid_Selected"]
+transform = Transform( 0.194644, 0, 0, 0, 0.194644, 0, 0, 0, 1.88705, 0, 0, 2.26848 )
+mesh = SubResource( 2 )
+material/0 = null
+
 [node name="Invalid" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 4.51668, 0, 0 )
 layers = 1024
@@ -35,11 +42,21 @@ layers = 1024
 mesh = SubResource( 1 )
 material/0 = ExtResource( 4 )
 
+[node name="MeshInstance" type="MeshInstance" parent="Invalid_Selected"]
+transform = Transform( 0.194644, 0, 0, 0, 0.194644, 0, 0, 0, 1.88705, 0, 0, 2.26848 )
+mesh = SubResource( 2 )
+material/0 = null
+
 [node name="Unused" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.998, 0, 0 )
 layers = 1024
 mesh = SubResource( 1 )
 material/0 = ExtResource( 2 )
+
+[node name="MeshInstance" type="MeshInstance" parent="Unused"]
+transform = Transform( 0.194644, 0, 0, 0, 0.194644, 0, 0, 0, 1.88705, 0, 0, 2.26848 )
+mesh = SubResource( 2 )
+material/0 = null
 
 [node name="Station" type="MeshInstance" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.9523, 0, 0 )
