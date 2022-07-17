@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scripts/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Pictures/IMG_20220525_000520__01.jpg" type="Texture" id=2]
 [ext_resource path="res://Fonts/AtlantisText-Regular.ttf" type="DynamicFontData" id=3]
 [ext_resource path="res://Fonts/new_dynamicfont_48.tres" type="DynamicFont" id=4]
 [ext_resource path="res://Animations/Fadein.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Audio/music_angela_paulson_floating_001.mp3" type="AudioStream" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -101,6 +102,11 @@ __meta__ = {
 
 [node name="Fadein" parent="." instance=ExtResource( 5 )]
 visible = false
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -15.0
+autoplay = true
 
 [connection signal="button_down" from="VBox/Menu/StartButton" to="." method="_on_StartButton_button_down"]
 [connection signal="button_down" from="VBox/Menu/ExitButton" to="." method="_on_ExitButton_button_down"]
