@@ -123,15 +123,28 @@ func place_tile_at(index3D):
 	
 	pathPoints.append(index3D)
 
+func remove_all_tiles_from_tile_onwards(index3D):
+	var startIdx = pathPoints.find(index3D)
+	if startIdx < 0:
+		return
+	
+	for i in range(pathPoints.size(), startIdx, -1):
+		var point = pathPoints.pop_back()
+		set_cell_item(point.x, point.y, point.z, -1)
+		pass
+
 func tile_can_be_placed_at_position(index3D):
 	
-	if pathPoints.find(index3D) > -1:
+	if tile_is_on_path(index3D):
 		return false
 	
 	var currentLast = pathPoints[pathPoints.size() - 1]
 	var diff = index3D - currentLast
 	var isValid = (abs(diff.x) + abs(diff.y) + abs(diff.z)) == 1;
 	return isValid
+
+func tile_is_on_path(index3D):
+	return pathPoints.find(index3D) > -1
 
 func get_valid_tiles():
 	var currentLast = pathPoints[pathPoints.size() - 1]
@@ -170,6 +183,21 @@ func get_invalid_tiles():
 		retVal.append(bottom)
 	
 	return retVal
+
+func _get_all_tiles_on_path_following(index3D):
+	var retVal = Array()
+	
+	var pointIndex = pathPoints.find(index3D)
+	if pointIndex == -1:
+		return retVal
+	
+	for index in pathPoints.size():
+		if index > pointIndex:
+			retVal.append(pathPoints[index])
+	
+	return retVal
+	
+	pass
 
 func generate_path():
 	
