@@ -15,3 +15,18 @@ func set_points(p):
 
 func get_points():
 	return points
+
+func enable_roll_label():
+	$ColorRect.visible = true
+	$ColorRect/LabelRoll.visible = true
+	$ColorRect/Labeltrack.visible = false
+
+func enable_track_label():
+	$ColorRect.visible = true
+	$ColorRect/LabelRoll.visible = false
+	$ColorRect/Labeltrack.visible = true
+
+func menu_mode():
+	$ColorRect.visible = false
+	$ColorRect/LabelRoll.visible = false
+	$ColorRect/Labeltrack.visible = false

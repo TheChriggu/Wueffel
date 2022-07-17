@@ -18,7 +18,7 @@ func _ready():
 	go_into_roll_state()
 
 func _process(delta):
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("roll"):
 		if currentState == 0:
 			go_into_roll_state()
 
@@ -37,6 +37,8 @@ func go_into_roll_state():
 	
 	$Controller.release_top_down_view()
 	$"2DGame/2DTopDownPort".end_hovering()
+	
+	LazyLinker.hud.enable_roll_label()
 
 func go_into_track_state():
 	currentState = 0
@@ -46,3 +48,4 @@ func go_into_track_state():
 	$Controller.force_top_down_view()
 	$"2DGame/2DTopDownPort".begin_Hovering()
 	
+	LazyLinker.hud.enable_track_label()
