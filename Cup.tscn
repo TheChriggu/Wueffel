@@ -89,6 +89,7 @@ transform = Transform( 1, 0, 0, 0, 0.1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="SpringArm/KinematicBody/Bottom"]
+layers = 1024
 mesh = SubResource( 8 )
 skeleton = NodePath("../../../..")
 material/0 = SubResource( 9 )
@@ -98,6 +99,7 @@ transform = Transform( 0.1, 0, 0, 0, 1, 0, 0, 0, 1, 0.96633, 0.897917, 0 )
 shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="SpringArm/KinematicBody/CollisionShape2"]
+layers = 1024
 mesh = SubResource( 10 )
 material/0 = null
 
@@ -107,6 +109,7 @@ shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="SpringArm/KinematicBody/CollisionShape3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -8.072, 0.726018, 0 )
+layers = 1024
 mesh = SubResource( 11 )
 material/0 = SubResource( 12 )
 
@@ -116,6 +119,7 @@ shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="SpringArm/KinematicBody/CollisionShape4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 11.1397, 0.77281, 4.8693e-08 )
+layers = 1024
 mesh = SubResource( 13 )
 material/0 = null
 
@@ -125,6 +129,7 @@ shape = SubResource( 7 )
 
 [node name="MeshInstance" type="MeshInstance" parent="SpringArm/KinematicBody/CollisionShape5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -11.8213, 0.741229, -5.16726e-08 )
+layers = 1024
 mesh = SubResource( 14 )
 material/0 = null
 
@@ -133,6 +138,3 @@ material/0 = null
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/RESET = SubResource( 15 )
 anims/roll_normal = SubResource( 16 )
-
-[node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 0.867479, 0.497474, 0, -0.497474, 0.867479, -1.46257, 7.06153, 14.009 )

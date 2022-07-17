@@ -165,11 +165,9 @@ transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="Cup" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="D6" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.57451, 0 )
-visible = false
 
 [node name="RigidBody" type="RigidBody" parent="D6"]
 

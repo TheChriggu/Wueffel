@@ -15,7 +15,6 @@ func _ready():
 	
 	controller = get_child(0)
 
-<<<<<<< HEAD
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if currentState == 1:
@@ -32,7 +31,7 @@ func _input(event):
 		else:
 			get_child(1).get_child(0).OnInputEvent(event)
 		print("input event")
-=======
+
 func _toggle_cam_movement(toggle):
 	controller.is_enabled = toggle
->>>>>>> Dice
+
