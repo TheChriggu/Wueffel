@@ -1,5 +1,7 @@
 extends RigidBody
 
+class_name Cube
+
 export(float) var time_until_damp = 3
 export(float) var time_until_stop = 2
 
