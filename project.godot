@@ -8,11 +8,31 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "RigidBody",
+"class": "Cube",
+"language": "GDScript",
+"path": "res://Scripts/Cube.gd"
+}, {
+"base": "MeshInstance",
+"class": "FallenCube",
+"language": "GDScript",
+"path": "res://Scripts/FallenCube.gd"
+} ]
+_global_script_class_icons={
+"Cube": "",
+"FallenCube": ""
+}
+
 [application]
 
 config/name="Wueffel"
 run/main_scene="res://Scenes/MainScene.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+LazyLinker="*res://Scripts/LazyLinker.gd"
 
 [display]
 

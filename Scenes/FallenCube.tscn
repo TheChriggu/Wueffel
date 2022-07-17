@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Models/Gradiant.material" type="Material" id=1]
+[ext_resource path="res://Models/SM_Dice_01.obj" type="ArrayMesh" id=2]
+[ext_resource path="res://Scripts/FallenCube.gd" type="Script" id=3]
+
+[node name="FallenCube" type="MeshInstance"]
+mesh = ExtResource( 2 )
+material/0 = ExtResource( 1 )
+script = ExtResource( 3 )
