@@ -4,7 +4,7 @@
 [ext_resource path="res://Scripts/MainGameplayScene.gd" type="Script" id=2]
 [ext_resource path="res://Pictures/IMG_20220525_000520__01.jpg" type="Texture" id=3]
 [ext_resource path="res://Cup.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scenes/CameraController.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/NewStuff/NewCameraController.tscn" type="PackedScene" id=5]
 
 [sub_resource type="PlaneMesh" id=2]
 
@@ -80,7 +80,9 @@ albedo_texture = ExtResource( 3 )
 [node name="MainGameplayScene" type="Spatial"]
 script = ExtResource( 2 )
 
-[node name="CameraController" parent="." instance=ExtResource( 5 )]
+[node name="Controller" parent="." instance=ExtResource( 5 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.89223 )
+mouse_sens = 0.01
 
 [node name="2DGame" type="Node" parent="."]
 

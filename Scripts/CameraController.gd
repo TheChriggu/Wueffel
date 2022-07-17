@@ -8,7 +8,6 @@ var focus : Spatial
 func _ready():
 	camera = get_child(1)
 	target = get_child(0).get_child(0)
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

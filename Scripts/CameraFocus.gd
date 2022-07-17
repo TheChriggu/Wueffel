@@ -13,6 +13,8 @@ export (int) var speed = 5
 var velocity = Vector2()
 var canMove = true
 
+var target: Spatial
+
 func get_input():
 	velocity = Vector2()
 	if Input.is_action_pressed("ui_right"):
@@ -27,7 +29,7 @@ func get_input():
 
 func _process(delta):
 	if !canMove:
-		pass
+		return
 	
 	get_input()
 	
@@ -36,7 +38,7 @@ func _process(delta):
 	var sinAngle = sin(rot_x)
 	var cosAngle = cos(rot_x)
 	
-	rotated.x = cosAngle * velocity.x  - sinAngle * velocity.y
+	rotated.x = cosAngle * velocity.x - sinAngle * velocity.y
 	rotated.y = sinAngle * velocity.x + cosAngle * velocity.y
 	
 	global_translate(Vector3(rotated.x * delta, 0, rotated.y * delta))
@@ -56,14 +58,14 @@ func _get_rotated_direction_behind():
 	
 	var rotated_hor = Vector2(retVal.x,retVal.z)
 	
-	rotated_hor.x = cosAngle * retVal.x  - sinAngle * retVal.z
+	rotated_hor.x = cosAngle * retVal.x - sinAngle * retVal.z
 	rotated_hor.y = sinAngle * retVal.x + cosAngle * retVal.z
 	
 	return Vector3(rotated_hor.x, -retVal.y, rotated_hor.y)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	target = get_child(0)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -73,7 +75,7 @@ func _ready():
 func _input(event):
 	
 	if !canMove:
-		pass
+		return
 	
 	if event is InputEventMouseMotion:
 		rot_x += event.relative.x * mouse_sens
@@ -81,11 +83,9 @@ func _input(event):
 		
 		rot_y = clamp(rot_y, -1, 1)
 		
-		
 		transform.basis = Basis() # reset rotation
 		rotate(Vector3(0, 1, 0), rot_x)
 		rotate(Vector3(0, 0, 1), -rot_y)
-		
 	
 	pass
 
