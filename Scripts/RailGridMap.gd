@@ -242,31 +242,3 @@ func generate_path():
 			path.curve.add_point(point2, curve.get_point_out(2), curve.get_point_in(2))
 			path.curve.add_point(point1, curve.get_point_out(1), curve.get_point_in(1))
 			currentLast = point1
-		#for pointIdx in curve.get_point_count():
-			#if pointIdx == 0 or pointIdx == 3:
-			#	continue
-				
-			#var point1 = 
-			#var pointPos = curve.get_point_position(pointIdx) + worldCoord
-			#var pointIn = curve.get_point_in(pointIdx)
-			#var pointOut = curve.get_point_out(pointIdx)
-			
-			#var dist = (pointPos - currentLast).length_squared()
-			
-			#if currentLastDist == -1:
-			#	path.curve.add_point(pointPos, pointIn, pointOut)
-			#	currentLastDist = dist
-			#elif currentLastDist >= 0 and dist < currentLastDist:
-			#	var lastIdx = path.curve.get_point_count() - 1
-			#	path.curve.add_point(pointPos, pointOut, pointIn, lastIdx)
-			#	var tmpIn = path.curve.get_point_in(lastIdx)
-			#	path.curve.set_point_in(lastIdx, path.curve.get_point_out(lastIdx))
-			#	path.curve.set_point_out(lastIdx, tmpIn)
-			#else:
-			#	path.curve.add_point(pointPos, pointIn, pointOut)
-			#	currentLastDist = dist
-			
-		
-		#currentLast = path.curve.get_point_position(path.curve.get_point_count() -1)
-		#currentLastDist = -1
-	
