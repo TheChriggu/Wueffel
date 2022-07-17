@@ -32,7 +32,6 @@ margin_bottom = 733.0
 custom_constants/separation = 60
 
 [node name="Label" type="Label" parent="VBox"]
-anchor_right = 0.496
 margin_right = 704.0
 margin_bottom = 193.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
