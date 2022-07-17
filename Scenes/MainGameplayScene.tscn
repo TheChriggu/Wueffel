@@ -1,8 +1,7 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Scenes/FelixTestScene.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/MainGameplayScene.gd" type="Script" id=2]
-[ext_resource path="res://Pictures/IMG_20220525_000520__01.jpg" type="Texture" id=3]
 [ext_resource path="res://Cup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/NewStuff/NewCameraController.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scripts/2DGameStuffDisplay.gd" type="Script" id=6]
@@ -73,14 +72,6 @@ albedo_color = Color( 0, 0, 0, 1 )
 [sub_resource type="CubeMesh" id=4]
 
 [sub_resource type="BoxShape" id=6]
-
-[sub_resource type="BoxShape" id=15]
-
-[sub_resource type="CubeMesh" id=16]
-
-[sub_resource type="SpatialMaterial" id=17]
-albedo_color = Color( 0.494118, 0.113725, 0.113725, 1 )
-albedo_texture = ExtResource( 3 )
 
 [node name="MainGameplayScene" type="Spatial"]
 script = ExtResource( 2 )
@@ -170,21 +161,6 @@ material/0 = null
 [node name="CollisionShape" type="CollisionShape" parent="GameBoard/Bounds/WallEast"]
 transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
 shape = SubResource( 6 )
-
-[node name="Cup" parent="." instance=ExtResource( 4 )]
-
-[node name="D6" type="Spatial" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.57451, 0 )
-
-[node name="RigidBody" type="RigidBody" parent="D6"]
-
-[node name="CollisionShape" type="CollisionShape" parent="D6/RigidBody"]
-transform = Transform( 0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0 )
-shape = SubResource( 15 )
-
-[node name="MeshInstance" type="MeshInstance" parent="D6/RigidBody/CollisionShape"]
-mesh = SubResource( 16 )
-material/0 = SubResource( 17 )
 
 [node name="DirectionalLight" type="DirectionalLight" parent="."]
 transform = Transform( 0.912223, -0.409681, 0.00329861, 0.409694, 0.912206, -0.00561993, -0.000706636, 0.00647805, 0.999979, 0, 115.446, 0 )

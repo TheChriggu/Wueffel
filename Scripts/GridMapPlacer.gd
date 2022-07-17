@@ -7,7 +7,7 @@ extends Spatial
 var tileMap : GridMap
 var validityMap : GridMap
 var previouslyHoveredTile = Vector3(-100000, -1000000, -100000)
-var hoveredTile = Vector3(-100000,-100000,-100000)
+var hoveredTile = Vector3(0, -1, 0)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,6 +16,9 @@ func _ready():
 	validityMap.transform = tileMap.transform
 
 func begin_hovering():
+	print("begin_hovering")
+	print(previouslyHoveredTile)
+	print(hoveredTile)
 	if previouslyHoveredTile != Vector3(-100000, -1000000, -100000):
 		hoveredTile = previouslyHoveredTile
 	else:
@@ -23,6 +26,9 @@ func begin_hovering():
 	update_indicators(hoveredTile, false)
 
 func end_hovering():
+	print("end_hovering")
+	print(previouslyHoveredTile)
+	print(hoveredTile)
 	var tmpTile = hoveredTile
 	hoveredTile = Vector3(-100000, -1000000, -100000)
 	update_indicators(hoveredTile, false)
