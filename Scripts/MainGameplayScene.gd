@@ -1,5 +1,6 @@
 extends Spatial
 
+export(PackedScene) var cup_scene
 
 var controller : Spatial
 
@@ -17,14 +18,9 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_cancel"):
 		if currentState == 1:
-			currentState = 0
-			get_child(0).release_top_down_view()
-			get_child(1).get_child(0).end_hovering()
+			go_into_track_state()
 		else:
-			currentState = 1
-			get_child(0).force_top_down_view()
-			
-			get_child(1).get_child(0).begin_Hovering()
+			go_into_roll_state()
 
 func _input(event):
 	if currentState == 1:
@@ -34,3 +30,18 @@ func _input(event):
 func _toggle_cam_movement(toggle):
 	controller.is_enabled = toggle
 
+func go_into_roll_state():
+	currentState = 1
+	
+	$Controller.force_top_down_view()
+	$"2DGame/2DTopDownPort".begin_Hovering()
+	
+	add_child(cup_scene.instance())
+
+func go_into_track_state():
+	currentState = 0
+	
+	print("#### Go track! ####")
+	
+	$Controller.release_top_down_view()
+	$"2DGame/2DTopDownPort".end_hovering()
