@@ -46,15 +46,18 @@ func _process(delta):
 		hoveredTile.x -= 1
 		update_indicators(hoveredTile, false)
 	if Input.is_action_just_pressed("ui_select"):
+		
+		
 		if tileMap.tile_can_be_placed_at_position(hoveredTile):
-			tileMap.place_tile_at(hoveredTile)
-			#update_indicators(hoveredTile)
-			update_indicators(hoveredTile, true)
+			if LazyLinker.hud.points > 0:
+				tileMap.place_tile_at(hoveredTile)
+				update_indicators(hoveredTile, true)
+				LazyLinker.hud.points -= 1
 		elif tileMap.tile_is_on_path(hoveredTile) and !tileMap.tile_is_secure(hoveredTile):
 			tileMap.remove_all_tiles_from_tile_onwards(hoveredTile)
 			update_indicators(hoveredTile, true)
-			pass
-		pass
+			
+		
 	pass
 
 func OnInputEvent(event, position):

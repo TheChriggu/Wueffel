@@ -137,6 +137,7 @@ func remove_all_tiles_from_tile_onwards(index3D):
 	for i in range(pathPoints.size(), startIdx, -1):
 		var point = pathPoints.pop_back()
 		set_cell_item(point.x, point.y, point.z, -1)
+		LazyLinker.hud.points += 1
 		pass
 
 func tile_can_be_placed_at_position(index3D):
