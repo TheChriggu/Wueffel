@@ -1,6 +1,7 @@
 extends GridMap
 
-enum RailType {STRAIGHT, CORNER_LD, CORNER_LU, CORNER_RD, CORNER_RU}
+enum RailType {STRAIGHT_H = 4, STRAIGHT_V = 5, CORNER_RU = 0, CORNER_RD = 1, CORNER_LD = 2, CORNER_LU = 3}
+enum CardinalDirection {NORTH, SOUTH, EAST, WEST}
 
 export(PackedScene) var track_tempalte
 export(int) var tile_id
@@ -12,22 +13,28 @@ var tracks
 
 var run = false
 
+var pathPoints = Array()
+
+
+
 
 func _ready():
 	path = get_child(0)
 	tracks = get_child(1)
 	
 	var used_rail_tiles = get_used_cells()
-	print(used_rail_tiles)
 	
-	generate_path()
+	for tile in used_rail_tiles:
+		pathPoints.append(tile)
+	
+	#generate_path()
 	
 	pathFollow1 = path.get_child(0)
-	pathFollow1.offset = 3.5
+	#pathFollow1.offset = 3.5
 	pathFollow2 = path.get_child(1)
-	pathFollow2.offset = 0
+	#pathFollow2.offset = 0
 	pathFollow3 = path.get_child(2)
-	pathFollow3.offset = -3.5
+	#pathFollow3.offset = -3.5
 
 func _process(delta):
 	if !run:
@@ -36,6 +43,95 @@ func _process(delta):
 	pathFollow1.offset += delta
 	pathFollow2.offset += delta
 	pathFollow3.offset += delta
+
+func place_tile_at(index3D):
+	if !tile_can_be_placed_at_position(index3D):
+		return
+	
+	var currentLast = pathPoints[pathPoints.size() - 1]
+	var currentOneBeforeLast = pathPoints[pathPoints.size() - 2]
+	
+	var currentLastFromDir = currentLast - currentOneBeforeLast
+	var currentDir = index3D - currentLast
+	
+	var currentLastCorner = Vector2(0,0)
+	if currentLastFromDir.x > 0:
+		currentLastCorner.y = 1
+	if currentLastFromDir.x < 0:
+		currentLastCorner.y = -1
+	if currentLastFromDir.z > 0:
+		currentLastCorner.x = 1
+	if currentLastFromDir.z < 0:
+		currentLastCorner.x = -1
+	
+	var currentCorner = Vector2(0,0)
+	if currentDir.x > 0:
+		currentCorner.y = 1
+	if currentDir.x < 0:
+		currentCorner.y = -1
+	if currentDir.z > 0:
+		currentCorner.x = 1
+	if currentDir.z < 0:
+		currentCorner.x = -1
+	
+	if currentLastCorner.x != 0 and currentCorner.x != 0:
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.STRAIGHT_H)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_H)
+	elif currentLastCorner.y != 0 and currentCorner.y!= 0:
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.STRAIGHT_V)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_V)
+	elif (currentLastCorner.x > 0 and currentCorner.y > 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_LU)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_V)
+	elif (currentLastCorner.x > 0 and currentCorner.y < 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_LD)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_V)
+	elif (currentLastCorner.x < 0 and currentCorner.y > 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_RU)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_V)
+	elif (currentLastCorner.x < 0 and currentCorner.y < 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_RD)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_V)
+	elif (currentLastCorner.y > 0 and currentCorner.x > 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_RD)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_H)
+	elif (currentLastCorner.y > 0 and currentCorner.x < 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_LD)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_H)
+	elif (currentLastCorner.y < 0 and currentCorner.x > 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_RU)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_H)
+	elif (currentLastCorner.y < 0 and currentCorner.x < 0):
+		set_cell_item(currentLast.x, currentLast.y, currentLast.z, RailType.CORNER_LU)
+		set_cell_item(index3D.x, index3D.y, index3D.z, RailType.STRAIGHT_H)
+	else:
+		print("placement unsuccessful.")
+		print("currentOneBeforeLast")
+		print(currentOneBeforeLast)
+		print("currentLast")
+		print(currentLast)
+		print("index3D")
+		print(index3D)
+		print("currentLastFromDir")
+		print(currentLastFromDir)
+		print("currentDir")
+		print(currentDir)
+		print("currentLastCorner")
+		print(currentLastCorner)
+		print("currentCorner")
+		print(currentCorner)
+	
+	pathPoints.append(index3D)
+
+func tile_can_be_placed_at_position(index3D):
+	
+	if pathPoints.find(index3D) > -1:
+		return false
+	
+	var currentLast = pathPoints[pathPoints.size() - 1]
+	var diff = index3D - currentLast
+	var isValid = (abs(diff.x) + abs(diff.y) + abs(diff.z)) == 1;
+	return isValid
 
 func generate_path():
 	

@@ -31,7 +31,8 @@ func _input(event):
 		var distance = (targetTilePos.y - from.y)/dir.y
 		var targetPos = tileMap.world_to_map(from + distance*dir)
 		
-		tileMap.set_cell_item(targetPos.x, targetPos.y, targetPos.z, 0)
+		tileMap.place_tile_at(targetPos)
+		#tileMap.set_cell_item(targetPos.x, targetPos.y, targetPos.z, 0)
 
 func place_tile_at_mouse_position(mousePos):
 	

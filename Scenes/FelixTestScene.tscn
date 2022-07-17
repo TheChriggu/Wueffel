@@ -12,7 +12,7 @@
 
 [sub_resource type="Curve3D" id=1]
 _data = {
-"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 8.98781, -0.760071, 3.12781, 0, 0, 0, 0, 0, 0, 8.98514, -0.759194, 18.8811 ),
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 9.97064, -0.760071, 4.13432, 0, 0, 0, 0, 0, 0, 9.9582, -0.759201, 19.8196 ),
 "tilts": PoolRealArray( 0, 0 )
 }
 
@@ -35,8 +35,9 @@ script = ExtResource( 9 )
 
 [node name="GridMap" type="GridMap" parent="GridMapPlacer"]
 mesh_library = ExtResource( 5 )
+cell_size = Vector3( 4, 2, 4 )
 data = {
-"cells": PoolIntArray( -65532, 2, 4, -65532, 4, 4, -65532, 6, 4, -65532, 8, 4 )
+"cells": PoolIntArray( -65534, 1, 4, -65534, 2, 4, -65534, 3, 4, -65534, 4, 4 )
 }
 script = ExtResource( 4 )
 __meta__ = {
@@ -48,24 +49,24 @@ __meta__ = {
 curve = SubResource( 1 )
 
 [node name="PathFollow" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98552, -0.759319, 16.6271 )
-offset = 13.5
+transform = Transform( 1, 6.02291e-09, 0.000344635, 1.17268e-09, 1, -2.08788e-05, -0.000344635, 2.08788e-05, 1, 9.96079, -0.759382, 16.5609 )
+offset = 12.44
 
 [node name="SM_Locomotive_01(3)" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow"]
 mesh = ExtResource( 2 )
 material/0 = SubResource( 2 )
 
 [node name="PathFollow2" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98613, -0.759518, 13.0566 )
-offset = 9.93
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 9.96361, -0.759579, 12.9971 )
+offset = 8.87
 
 [node name="SM_Locomotive_01(3)" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow2"]
 mesh = ExtResource( 3 )
 material/0 = SubResource( 2 )
 
 [node name="PathFollow3" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98683, -0.759746, 8.95431 )
-offset = 5.83
+transform = Transform( 1, 2.51949e-08, 0.000683198, 2.72005e-08, 1, -7.66913e-05, -0.000683198, 7.66913e-05, 1, 9.96696, -0.759813, 8.77674 )
+offset = 4.64
 rotation_mode = 2
 
 [node name="MeshInstance" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow3"]
