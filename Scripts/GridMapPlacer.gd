@@ -17,11 +17,19 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	
 	pass
 
 func _input(event):
+	#if event is InputEventMouseButton and event.pressed:
+	print("eventPosition: ")
+	#print (event.position)
+
+func OnInputEvent(event, position):
 	if event is InputEventMouseButton and event.pressed and event.button_index == 1:
+		print("eventPosition: ")
+		print (event.position)
+		print("position: ")
+		print(position)
 		var camera = get_parent().get_child(1)
 		var dir = camera.project_ray_normal(event.position)
 		var from = camera.project_ray_origin(event.position)

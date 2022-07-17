@@ -28,4 +28,8 @@ script = ExtResource( 3 )
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.889161, 0.457595, 0, -0.457595, 0.889161, 0, 3.18206, 4.16211 )
+cull_mask = 1047552
 script = ExtResource( 4 )
+
+[node name="TopDown" type="Spatial" parent="."]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 25, 0 )
