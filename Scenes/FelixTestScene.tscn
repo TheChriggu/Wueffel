@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Models/T_GradientTexture_01.tga" type="Texture" id=1]
 [ext_resource path="res://Models/SM_Locomotive_01(3).obj" type="ArrayMesh" id=2]
@@ -7,11 +7,13 @@
 [ext_resource path="res://rails.tres" type="MeshLibrary" id=5]
 [ext_resource path="res://Models/SM_Testcar_01.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Models/TestWaggon.png" type="Texture" id=7]
+[ext_resource path="res://Scenes/Rails.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scripts/GridMapPlacer.gd" type="Script" id=9]
 
 [sub_resource type="Curve3D" id=1]
 _data = {
-"points": PoolVector3Array(  ),
-"tilts": PoolRealArray(  )
+"points": PoolVector3Array( 0, 0, 0, 0, 0, 0, 8.98781, -0.760071, 3.12781, 0, 0, 0, 0, 0, 0, 8.98514, -0.759194, 18.8811 ),
+"tilts": PoolRealArray( 0, 0 )
 }
 
 [sub_resource type="SpatialMaterial" id=2]
@@ -28,12 +30,13 @@ _data = {
 
 [node name="Root" type="Node"]
 
-[node name="Spatial" type="Spatial" parent="."]
+[node name="GridMapPlacer" type="Spatial" parent="."]
+script = ExtResource( 9 )
 
-[node name="GridMap" type="GridMap" parent="Spatial"]
+[node name="GridMap" type="GridMap" parent="GridMapPlacer"]
 mesh_library = ExtResource( 5 )
 data = {
-"cells": PoolIntArray( -65534, 0, 4, -65534, 2, 4, -65534, 4, 4, -65534, 6, 4, -65534, 8, 3, -65532, 8, 5, -65530, 8, 5, -65528, 8, 1, -65534, 10, 5, -65532, 10, 5, -65530, 10, 5, -65528, 10, 2 )
+"cells": PoolIntArray( -65532, 2, 4, -65532, 4, 4, -65532, 6, 4, -65532, 8, 4 )
 }
 script = ExtResource( 4 )
 __meta__ = {
@@ -41,26 +44,36 @@ __meta__ = {
 "_editor_floor_": Vector3( 0, -1, 0 )
 }
 
-[node name="Path" type="Path" parent="Spatial/GridMap"]
+[node name="Path" type="Path" parent="GridMapPlacer/GridMap"]
 curve = SubResource( 1 )
 
-[node name="PathFollow" type="PathFollow" parent="Spatial/GridMap/Path"]
+[node name="PathFollow" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98552, -0.759319, 16.6271 )
+offset = 13.5
 
-[node name="SM_Locomotive_01(3)" type="MeshInstance" parent="Spatial/GridMap/Path/PathFollow"]
+[node name="SM_Locomotive_01(3)" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow"]
 mesh = ExtResource( 2 )
 material/0 = SubResource( 2 )
 
-[node name="PathFollow2" type="PathFollow" parent="Spatial/GridMap/Path"]
+[node name="PathFollow2" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98613, -0.759518, 13.0566 )
+offset = 9.93
 
-[node name="SM_Locomotive_01(3)" type="MeshInstance" parent="Spatial/GridMap/Path/PathFollow2"]
+[node name="SM_Locomotive_01(3)" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow2"]
 mesh = ExtResource( 3 )
 material/0 = SubResource( 2 )
 
-[node name="PathFollow3" type="PathFollow" parent="Spatial/GridMap/Path"]
+[node name="PathFollow3" type="PathFollow" parent="GridMapPlacer/GridMap/Path"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.98683, -0.759746, 8.95431 )
+offset = 5.83
+rotation_mode = 2
 
-[node name="MeshInstance" type="MeshInstance" parent="Spatial/GridMap/Path/PathFollow3"]
+[node name="MeshInstance" type="MeshInstance" parent="GridMapPlacer/GridMap/Path/PathFollow3"]
 mesh = ExtResource( 6 )
 material/0 = SubResource( 4 )
+
+[node name="Rails" parent="GridMapPlacer/GridMap" instance=ExtResource( 8 )]
+visible = false
 
 [node name="Camera" type="Camera" parent="."]
 transform = Transform( -0.973411, 0.216898, -0.0736606, 0.114487, 0.739199, 0.663685, 0.198402, 0.637605, -0.744377, 0, 6.51442, 0 )
