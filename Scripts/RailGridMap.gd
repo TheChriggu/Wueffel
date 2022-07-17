@@ -14,35 +14,41 @@ var tracks
 var run = false
 
 var pathPoints = Array()
-
+var savedPoints = Array()
+var startCurve : Curve3D
 
 
 
 func _ready():
 	path = get_child(0)
+	
+	startCurve = Curve3D.new()
+	
+	startCurve.add_point(path.curve.get_point_position(0))
+	startCurve.add_point(path.curve.get_point_position(1))
 	tracks = get_child(1)
 	
 	var used_rail_tiles = get_used_cells()
 	
 	for tile in used_rail_tiles:
 		pathPoints.append(tile)
-	
-	#generate_path()
+		savedPoints.append(tile)
 	
 	pathFollow1 = path.get_child(0)
-	#pathFollow1.offset = 3.5
 	pathFollow2 = path.get_child(1)
-	#pathFollow2.offset = 0
 	pathFollow3 = path.get_child(2)
-	#pathFollow3.offset = -3.5
 
 func _process(delta):
+	if Input.is_action_just_pressed("ui_accept"):
+		generate_path()
+		run = true
+	
 	if !run:
 		return
 	
-	pathFollow1.offset += delta
-	pathFollow2.offset += delta
-	pathFollow3.offset += delta
+	pathFollow1.offset += delta*5
+	pathFollow2.offset += delta*5
+	pathFollow3.offset += delta*5
 
 func place_tile_at(index3D):
 	if !tile_can_be_placed_at_position(index3D):
@@ -146,6 +152,9 @@ func tile_can_be_placed_at_position(index3D):
 func tile_is_on_path(index3D):
 	return pathPoints.find(index3D) > -1
 
+func tile_is_secure(index3D):
+	return savedPoints.find(index3D) > -1
+
 func get_valid_tiles():
 	var currentLast = pathPoints[pathPoints.size() - 1]
 	var retVal = Array()
@@ -203,34 +212,61 @@ func generate_path():
 	
 	path.curve.clear_points()
 	
+	
+	path.curve.add_point(startCurve.get_point_position(0))
+	path.curve.add_point(startCurve.get_point_position(1))
+	var kickOffPoint = startCurve.get_point_position(1)
+	var currentLast = kickOffPoint#map_to_world(kickOffPoint.x, kickOffPoint.y, kickOffPoint.z)
+	var currentLastDist = -1
+	
 	var used_rail_tiles = get_used_cells()
+	for savedPoint in savedPoints:
+		used_rail_tiles.erase(savedPoint)
 	
-	var currentLast = map_to_world(used_rail_tiles[0].x, used_rail_tiles[0].y, used_rail_tiles[0].z)
-	var currentLastDist = 4
-	
-	for tile in used_rail_tiles:
+	for tile in pathPoints:
 		var worldCoord = map_to_world(tile.x, tile.y, tile.z)
 		var item = get_cell_item(tile.x, tile.y, tile.z)
 		
 		var curve = tracks.get_curve_for_item(item)
 		
-		for pointIdx in curve.get_point_count():
-			var pointPos = curve.get_point_position(pointIdx) + worldCoord
-			var pointIn = curve.get_point_in(pointIdx)
-			var pointOut = curve.get_point_out(pointIdx)
+		var point1 = curve.get_point_position(1) + worldCoord
+		var point2 = curve.get_point_position(2) + worldCoord
+		
+		var d1 = (point1 - currentLast).length_squared()
+		var d2 = (point2 - currentLast).length_squared()
+		if d1 < d2:
+			path.curve.add_point(point1, curve.get_point_in(1), curve.get_point_out(1))
+			path.curve.add_point(point2, curve.get_point_in(2), curve.get_point_out(2))
+			currentLast = point2
+		else:
+			path.curve.add_point(point2, curve.get_point_out(2), curve.get_point_in(2))
+			path.curve.add_point(point1, curve.get_point_out(1), curve.get_point_in(1))
+			currentLast = point1
+		#for pointIdx in curve.get_point_count():
+			#if pointIdx == 0 or pointIdx == 3:
+			#	continue
+				
+			#var point1 = 
+			#var pointPos = curve.get_point_position(pointIdx) + worldCoord
+			#var pointIn = curve.get_point_in(pointIdx)
+			#var pointOut = curve.get_point_out(pointIdx)
 			
-			var dist = (pointPos - currentLast).length_squared()
+			#var dist = (pointPos - currentLast).length_squared()
 			
-			if currentLastDist == -1:
-				path.curve.add_point(pointPos, pointIn, pointOut)
-				currentLastDist = dist
-			elif currentLastDist > 0 and dist < currentLastDist and path.curve.get_point_count() > 2:
-				path.curve.add_point(pointPos, pointIn, pointOut, path.curve.get_point_count() - 2)
-			else:
-				path.curve.add_point(pointPos, pointIn, pointOut)
-				currentLastDist = dist
+			#if currentLastDist == -1:
+			#	path.curve.add_point(pointPos, pointIn, pointOut)
+			#	currentLastDist = dist
+			#elif currentLastDist >= 0 and dist < currentLastDist:
+			#	var lastIdx = path.curve.get_point_count() - 1
+			#	path.curve.add_point(pointPos, pointOut, pointIn, lastIdx)
+			#	var tmpIn = path.curve.get_point_in(lastIdx)
+			#	path.curve.set_point_in(lastIdx, path.curve.get_point_out(lastIdx))
+			#	path.curve.set_point_out(lastIdx, tmpIn)
+			#else:
+			#	path.curve.add_point(pointPos, pointIn, pointOut)
+			#	currentLastDist = dist
 			
 		
-		currentLast = path.curve.get_point_position(path.curve.get_point_count() -1)
-		currentLastDist = -1
+		#currentLast = path.curve.get_point_position(path.curve.get_point_count() -1)
+		#currentLastDist = -1
 	

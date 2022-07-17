@@ -13,7 +13,6 @@ func _ready():
 	tileMap = get_child(0)
 	validityMap = get_child(1)
 	validityMap.transform = tileMap.transform
-	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -38,7 +37,7 @@ func _input(event):
 			tileMap.place_tile_at(targetPos)
 			update_indicators(targetPos)
 			update_indicators(targetPos, true)
-		elif tileMap.tile_is_on_path(targetPos):
+		elif tileMap.tile_is_on_path(targetPos) and !tileMap.tile_is_secure(targetPos):
 			tileMap.remove_all_tiles_from_tile_onwards(targetPos)
 			update_indicators(targetPos, true)
 			pass
@@ -55,7 +54,6 @@ func _input(event):
 		var distance = (targetTilePos.y - from.y)/dir.y
 		var targetPos = tileMap.world_to_map(from + distance*dir)
 		update_indicators(targetPos, false)
-		
 
 func update_indicators(hoveredTilePosition, ignoreHoverCheck = false):
 	if hoveredTilePosition != previouslyHoveredTile or ignoreHoverCheck:
@@ -68,6 +66,9 @@ func update_indicators(hoveredTilePosition, ignoreHoverCheck = false):
 		var invalidTiles = tileMap.get_invalid_tiles()
 		
 		if tileMap.tile_is_on_path(hoveredTilePosition):
+			if tileMap.tile_is_secure(hoveredTilePosition):
+				validityMap.set_cell_item(hoveredTilePosition.x, hoveredTilePosition.y+1, hoveredTilePosition.z, 5, 6)
+				return
 			validityMap.set_cell_item(hoveredTilePosition.x, hoveredTilePosition.y+1, hoveredTilePosition.z, 3, 6)
 			var followers = tileMap._get_all_tiles_on_path_following(hoveredTilePosition)
 			for follower in followers:
@@ -79,10 +80,3 @@ func update_indicators(hoveredTilePosition, ignoreHoverCheck = false):
 			validityMap.set_cell_item(hoveredTilePosition.x, hoveredTilePosition.y+1, hoveredTilePosition.z, 4, 6)
 			if validTiles.find(hoveredTilePosition) != -1:
 				validityMap.set_cell_item(hoveredTilePosition.x, hoveredTilePosition.y+1, hoveredTilePosition.z, 2, 6)
-
-func place_tile_at_mouse_position(mousePos):
-	
-	pass
-
-func place_tile_at_grid_position(gridPos):
-	pass
