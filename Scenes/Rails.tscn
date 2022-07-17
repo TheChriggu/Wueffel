@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://Models/SM_Rail_4m_Corner_02.obj" type="ArrayMesh" id=1]
 [ext_resource path="res://Models/SM_Rail_4m_01.obj" type="ArrayMesh" id=2]
@@ -8,6 +8,15 @@
 [ext_resource path="res://Models/SM_Rail_4m_02.obj" type="ArrayMesh" id=6]
 [ext_resource path="res://Models/SM_Rail_4m_Corner_01.obj" type="ArrayMesh" id=7]
 [ext_resource path="res://Scripts/Rails.gd" type="Script" id=8]
+[ext_resource path="res://Models/Environment/SM_Env_Trees_03.obj" type="ArrayMesh" id=9]
+[ext_resource path="res://Models/Environment/SM_Env_Trees_01.obj" type="ArrayMesh" id=10]
+[ext_resource path="res://Models/Environment/SM_Env_Trees_02.obj" type="ArrayMesh" id=11]
+[ext_resource path="res://Models/Environment/SM_Env_Grass_02.obj" type="ArrayMesh" id=12]
+[ext_resource path="res://Models/Environment/SM_Env_Rocks_01.obj" type="ArrayMesh" id=13]
+[ext_resource path="res://Models/Environment/SM_Env_Grass_01.obj" type="ArrayMesh" id=14]
+[ext_resource path="res://Models/Environment/SM_Env_Rocks_02.obj" type="ArrayMesh" id=15]
+[ext_resource path="res://Models/Gradiant.material" type="Material" id=16]
+[ext_resource path="res://Models/Environment/SM_Env_Grass_03.obj" type="ArrayMesh" id=17]
 
 [sub_resource type="SpatialMaterial" id=38]
 albedo_texture = ExtResource( 3 )
@@ -123,3 +132,45 @@ material/0 = SubResource( 30 )
 
 [node name="Path" type="Path" parent="SM_Rail_4m_02"]
 curve = SubResource( 44 )
+
+[node name="SM_Env_Grass_01" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 16, 0, 0 )
+mesh = ExtResource( 14 )
+material/0 = ExtResource( 16 )
+
+[node name="SM_Env_Grass_02" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 21, 0, 0 )
+material_override = ExtResource( 16 )
+mesh = ExtResource( 12 )
+material/0 = null
+
+[node name="SM_Env_Grass_03" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 26, 0, 0 )
+material_override = ExtResource( 16 )
+mesh = ExtResource( 17 )
+material/0 = null
+
+[node name="SM_Env_Rocks_01" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 34, 0, 0 )
+mesh = ExtResource( 13 )
+material/0 = ExtResource( 16 )
+
+[node name="SM_Env_Rocks_02" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 43, 0, 0 )
+mesh = ExtResource( 15 )
+material/0 = ExtResource( 16 )
+
+[node name="SM_Env_Trees_01" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 50, 0, 0 )
+mesh = ExtResource( 10 )
+material/0 = ExtResource( 16 )
+
+[node name="SM_Env_Trees_02" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 56, 0, 0 )
+mesh = ExtResource( 11 )
+material/0 = ExtResource( 16 )
+
+[node name="SM_Env_Trees_03" type="MeshInstance" parent="."]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 60, 0, 0 )
+mesh = ExtResource( 9 )
+material/0 = ExtResource( 16 )
