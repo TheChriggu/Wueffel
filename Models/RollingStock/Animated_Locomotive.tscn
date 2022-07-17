@@ -1,6 +1,6 @@
 [gd_scene load_steps=20 format=2]
 
-[ext_resource path="res://Models/RollingStock/Gradiant.material" type="Material" id=1]
+[ext_resource path="res://Models/Gradiant.material" type="Material" id=1]
 
 [sub_resource type="ArrayMesh" id=1]
 resource_name = "Animated_Locomotive_Cube029"
