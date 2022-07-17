@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=16 format=2]
 
-[ext_resource path="res://Scenes/FelixTestScene.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/TestSceneChris.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scripts/MainGameplayScene.gd" type="Script" id=2]
 [ext_resource path="res://Pictures/IMG_20220525_000520__01.jpg" type="Texture" id=3]
 [ext_resource path="res://Cup.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Scenes/NewStuff/NewCameraController.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scripts/2DGameStuffDisplay.gd" type="Script" id=6]
 
 [sub_resource type="PlaneMesh" id=2]
 
@@ -60,15 +59,11 @@ shader_param/uv1_scale = Vector3( 1, 1, 1 )
 shader_param/uv1_offset = Vector3( 0, 0, 0 )
 shader_param/uv2_scale = Vector3( 1, 1, 1 )
 shader_param/uv2_offset = Vector3( 0, 0, 0 )
-shader_param/pixelReduction = 0.05
+shader_param/pixelReduction = 4.0
 
 [sub_resource type="BoxShape" id=5]
 
 [sub_resource type="PlaneMesh" id=1]
-
-[sub_resource type="SpatialMaterial" id=20]
-flags_unshaded = true
-albedo_color = Color( 0, 0, 0, 1 )
 
 [sub_resource type="CubeMesh" id=4]
 
@@ -91,15 +86,13 @@ mouse_sens = 0.01
 
 [node name="2DGame" type="Node" parent="."]
 
-[node name="2DTopDownPort" parent="2DGame" instance=ExtResource( 1 )]
+[node name="2DGameStuff" parent="2DGame" instance=ExtResource( 1 )]
 
 [node name="2DGameStuffDisplay" type="MeshInstance" parent="2DGame"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.467761, 0.336624 )
-layers = 1024
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 15, 0, -0.467761, 0.336624 )
 mesh = SubResource( 2 )
 skeleton = NodePath("../..")
 material/0 = SubResource( 19 )
-script = ExtResource( 6 )
 
 [node name="GameBoard" type="Spatial" parent="."]
 
@@ -110,11 +103,10 @@ transform = Transform( 10, 0, 0, 0, 0.2, 0, 0, 0, 10, 0, -0.802293, 0 )
 shape = SubResource( 5 )
 
 [node name="Background" type="MeshInstance" parent="GameBoard/Background"]
-transform = Transform( 500, 0, 0, 0, 1, 0, 0, 0, 500, 0, -1.699, 0 )
-layers = 1024
+transform = Transform( 15, 0, 0, 0, 1, 0, 0, 0, 5, 0, -0.664562, 0 )
 mesh = SubResource( 1 )
 skeleton = NodePath("../../..")
-material/0 = SubResource( 20 )
+material/0 = null
 
 [node name="Bounds" type="Spatial" parent="GameBoard"]
 
@@ -171,7 +163,6 @@ transform = Transform( 2.068, 0, 0, 0, 4.048, 0, 0, 0, 2.214, 0, 0, 0 )
 shape = SubResource( 6 )
 
 [node name="Cup" parent="." instance=ExtResource( 4 )]
-visible = false
 
 [node name="D6" type="Spatial" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.57451, 0 )
@@ -185,7 +176,3 @@ shape = SubResource( 15 )
 [node name="MeshInstance" type="MeshInstance" parent="D6/RigidBody/CollisionShape"]
 mesh = SubResource( 16 )
 material/0 = SubResource( 17 )
-
-[node name="DirectionalLight" type="DirectionalLight" parent="."]
-transform = Transform( 0.912223, -0.409681, 0.00329861, 0.409694, 0.912206, -0.00561993, -0.000706636, 0.00647805, 0.999979, 0, 115.446, 0 )
-shadow_enabled = true
